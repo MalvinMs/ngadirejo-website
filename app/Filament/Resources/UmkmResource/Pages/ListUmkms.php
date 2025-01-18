@@ -4,9 +4,9 @@ namespace App\Filament\Resources\UmkmResource\Pages;
 
 use App\Filament\Resources\UmkmResource;
 use Filament\Actions;
-use Filament\Resources\Pages\ManageRecords;
+use Filament\Resources\Pages\ListRecords;
 
-class ManageUmkms extends ManageRecords
+class ListUmkms extends ListRecords
 {
     protected static string $resource = UmkmResource::class;
 

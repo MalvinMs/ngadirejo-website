@@ -20,13 +20,14 @@
             <div class="flex items-center justify-center mt-6 text-gray-600 capitalize dark:text-gray-300">
                 <a href="/"
                     class="mx-2 text-gray-800 border-b-2 border-blue-500 dark:text-gray-200 sm:mx-6">home</a>
+                <a href="/tentang"
+                    class="mx-2 border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-blue-500 sm:mx-6">Tentang</a>
                 <a href="/umkm"
                     class="mx-2 border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-blue-500 sm:mx-6">UMKM</a>
 
                 <a href="/pertanian"
                     class="mx-2 border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-blue-500 sm:mx-6">Pertanian</a>
-                <a href="/tentang"
-                    class="mx-2 border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-blue-500 sm:mx-6">Tentang</a>
+
                 <a href="/admin"
                     class="mx-2 border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-blue-500 sm:mx-6">Login</a>
 
@@ -87,6 +88,8 @@
             </div>
         </div>
     </footer>
+
 </body>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
 </html>

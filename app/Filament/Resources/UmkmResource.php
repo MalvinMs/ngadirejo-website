@@ -6,12 +6,18 @@ use App\Filament\Resources\UmkmResource\Pages;
 use App\Filament\Resources\UmkmResource\RelationManagers;
 use App\Models\Umkm;
 use Filament\Forms;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Storage;
+use PhpParser\Node\Stmt\TryCatch;
 
 class UmkmResource extends Resource
 {
@@ -19,31 +25,35 @@ class UmkmResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $navigationLabel = 'UMKM';
+    protected static ?string $modelLabel = 'UMKM';
+    protected static ?string $pluralModelLabel = 'UMKM';
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('nama')
-                    ->required()
-                    ->label('Nama'),
-                Forms\Components\TextInput::make('deskripsi')
-                    ->required()
-                    ->label('Deskripsi'),
-                Forms\Components\TextInput::make('jenis')
-                    ->required()
-                    ->label('Jenis'),
-                Forms\Components\TextInput::make('alamat')
-                    ->required()
-                    ->label('Alamat'),
-                Forms\Components\TextInput::make('telp')
-                    ->required()
-                    ->numeric()
-                    ->minLength(10)
-                    ->maxLength(13)
-                    ->tel()
-                    ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/')
-                    ->label('Telp'),
-
+                Section::make('Umkm')
+                    ->schema([
+                        Forms\Components\TextInput::make('nama')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('deskripsi')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('jenis')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('alamat')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('telp')
+                            ->tel()
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\FileUpload::make('foto')
+                            ->required()
+                            ->image(),
+                    ])->columns(2),
             ]);
     }
 
@@ -52,34 +62,77 @@ class UmkmResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('nama')
-                    ->label('Nama'),
-                Tables\Columns\TextColumn::make('deskripsi')
-                    ->label('Deskripsi'),
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('jenis')
-                    ->label('Jenis'),
-                Tables\Columns\TextColumn::make('alamat')
-                    ->label('Alamat'),
-                Tables\Columns\TextColumn::make('telp')
-                    ->label('Telp'),
+                    ->searchable(),
+                // Tables\Columns\TextColumn::make('alamat')
+                //     ->searchable(),
+                // Tables\Columns\TextColumn::make('telp')
+                //     ->searchable(),
+                Tables\Columns\ImageColumn::make('foto'),
+                // Tables\Columns\TextColumn::make('created_at')
+                //     ->dateTime()
+                //     ->sortable()
+                //     ->toggleable(isToggledHiddenByDefault: true),
+                // Tables\Columns\TextColumn::make('updated_at')
+                //     ->dateTime()
+                //     ->sortable()
+                //     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\DeleteAction::make()
+                    ->requiresConfirmation()
+                    ->action(function (Model $record) {
+                        try {
+                            Storage::disk('public')->delete($record->foto);
+                            $record->delete();
+
+                            Notification::make()
+                                ->title('Berhasil dihapus')
+                                ->success()
+                                ->send();
+                        } catch (\Exception $e) {
+                            Notification::make()
+                                ->title('Gagal menghapus')
+                                ->body($e->getMessage())
+                                ->danger()
+                                ->send();
+                        }
+                    }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->after(
+                            function (Collection $record) {
+                                foreach ($record as $key => $value) {
+                                    if ($value->foto) {
+                                        Storage::disk('public')->delete($value->foto);
+                                    }
+                                }
+                            }
+                        ),
                 ]),
             ]);
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageUmkms::route('/'),
+            'index' => Pages\ListUmkms::route('/'),
+            'create' => Pages\CreateUmkm::route('/create'),
+            'edit' => Pages\EditUmkm::route('/{record}/edit'),
         ];
     }
 }
