@@ -10,8 +10,9 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $umkm = Umkm::all();
+        $umkm = Umkm::where('jenis', 'UMKM')->get();
+        $pertanianUmkm = Umkm::where('jenis', 'Pertanian')->get();
         $pertanian = Pertanian::all();
-        return view('welcome', compact('umkm', 'pertanian'));
+        return view('welcome', compact('umkm', 'pertanian', 'pertanianUmkm'));
     }
 }

@@ -40,9 +40,13 @@ class UmkmResource extends Resource
                         Forms\Components\TextInput::make('deskripsi')
                             ->required()
                             ->maxLength(255),
-                        Forms\Components\TextInput::make('jenis')
+                        Forms\Components\Select::make('jenis')
                             ->required()
-                            ->maxLength(255),
+                            ->options([
+                                'UMKM' => 'UMKM',
+                                'Pertanian' => 'Pertanian',
+                                'published' => 'Published',
+                            ]),
                         Forms\Components\TextInput::make('alamat')
                             ->required()
                             ->maxLength(255),

@@ -1,23 +1,23 @@
 <x-app-layout title="Pertanian">
 
     <section class="container bg-white dark:bg-gray-900 mx-auto">
-        <div class="container bg-white dark:bg-gray-900 px-8 py-16 mx-auto">
+        <div class="container bg-white dark:bg-gray-900 px-12 py-16 mx-auto">
             <div class="items-center lg:flex">
                 <div class="w-full lg:w-1/2">
                     <div class="lg:max-w-lg">
-                        <h1 class="text-3xl font-semibold text-gray-800 dark:text-white lg:text-4xl">Best place to choose
-                            <br> your <span class="text-blue-500 ">clothes</span>
+                        <h1 class="text-3xl font-semibold text-gray-800 dark:text-white lg:text-4xl">Pertanian Desa
+                            Ngadirejo:
+                            <br> <span class="text-blue-500 ">Sumber Kehidupan dan Kesejahteraan</span>
                         </h1>
 
-                        <p class="mt-3 text-gray-600 dark:text-gray-400">Lorem ipsum dolor sit amet, consectetur
-                            adipisicing
-                            elit. Porro beatae error laborum ab amet sunt recusandae? Reiciendis natus perspiciatis
-                            optio.
+                        <p class="mt-3 text-gray-600 dark:text-gray-400">Dengan tanah yang subur dan keahlian bertani
+                            yang diwariskan secara turun-temurun, Desa Ngadirejo menghasilkan komoditas pertanian
+                            berkualitas tinggi. Dari padi hingga buah-buahan tropis, kami berkomitmen untuk menyediakan
+                            hasil bumi terbaik yang mendukung kesejahteraan masyarakat dan menjaga keberlanjutan
+                            lingkungan.
                         </p>
 
-                        <button
-                            class="w-full px-5 py-2 mt-6 text-sm tracking-wider text-white uppercase transition-colors duration-300 transform bg-blue-600 rounded-lg lg:w-auto hover:bg-blue-500 focus:outline-none focus:bg-blue-500">Shop
-                            Now</button>
+
                     </div>
                 </div>
 
@@ -28,11 +28,16 @@
             </div>
         </div>
         <div class="container px-12 ">
-            <h2 class="text-lg font-medium text-gray-800 dark:text-white">Customers</h2>
+            <h2 class="text-lg font-medium text-gray-800 dark:text-white">Data Pertanian Desa Ngadirejo: Potensi dan
+                Keunggulan Lokal</h2>
 
-            <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">These companies have purchased in the last 12
-                months.
+            <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">Desa Ngadirejo, Magetan, dikenal dengan hasil
+                pertaniannya yang melimpah dan berkualitas tinggi. Dari padi yang menjadi komoditas utama hingga
+                buah-buahan segar yang menjadi kebanggaan warga, sektor pertanian di desa ini mencerminkan kerja keras
+                dan inovasi masyarakat. Mari jelajahi potensi pertanian yang menjadi tulang punggung perekonomian desa
+                kami.
             </p>
+
 
             <div class="flex flex-col mt-6">
                 <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
